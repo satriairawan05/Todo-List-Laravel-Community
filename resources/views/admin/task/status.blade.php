@@ -24,7 +24,7 @@
                             </select>
                         </div>
                         <a href="{{ route('task.index') }}" class="btn btn-sm btn-warning"> <i class="fas fa-reply"></i></a>
-                        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                     </form>
                 </div>
             </div>

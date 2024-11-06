@@ -8,9 +8,13 @@
 
         <div class="section-body">
             @if (session('success'))
-                <div class="row col-12">
-                    <p class="alert alert-success text-dark">{{ session('success') }}</p>
-                    <div class="alert-dismissible"></div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> {{ session('success') }}
+                </div>
+            @endif
+            @if (session('failed'))
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Failed!</strong> {{ session('failed') }}
                 </div>
             @endif
             <div class="card card-body text-dark">
@@ -19,24 +23,22 @@
                         <form action="{{ route('task.index') }}" method="get">
                             @csrf
                             @php
-                                $status = ['Created', 'Completed', 'Pending','In Proggress'];
-                                foreach ($task as $t) {
-                                    $statusTask = $t->status;
-                                }
+                                $status = ['Created', 'Completed', 'Pending', 'In Proggress'];
+                                $taskStatus = $task[0]->status ?? null;
                             @endphp
-                                <select name="status" class="form-select mx-2" id="statusSelect"
-                                    aria-label="Default select example">
-                                    @foreach ($status as $s)
-                                        @if ($s == $statusTask)
-                                            <option value="{{ $s }}" selected>
-                                                {{ $s }}</option>
-                                        @else
-                                            <option value="{{ $s }}">
-                                                {{ $s }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                                <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                            <select name="status" class="form-select mx-2" id="statusSelect"
+                                aria-label="Default select example">
+                                @foreach ($status as $s)
+                                    @if ($s === $taskStatus)
+                                        <option value="{{ $s }}" selected>
+                                            {{ $s }}</option>
+                                    @else
+                                        <option value="{{ $s }}">
+                                            {{ $s }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-success">Submit</button>
                         </form>
                     </div>
                     <div class="mx-2">
@@ -57,9 +59,11 @@
                     <tbody>
                         @foreach ($task as $t)
                             <tr>
-                                <th scope="row" class="{{ $t->status !== 'Completed' ? 'text-primary text-bold' : 'text-bold' }}">
+                                <th scope="row"
+                                    class="{{ $t->status !== 'Completed' ? 'text-primary text-bold' : 'text-bold' }}">
                                     {{ $loop->iteration + ($task->currentPage() - 1) * $task->perPage() }}</th>
-                                <td id="taskList" class="{{ $t->status !== 'Completed' ? 'text-primary text-bold' : 'text-bold' }}">
+                                <td id="taskList"
+                                    class="{{ $t->status !== 'Completed' ? 'text-primary text-bold' : 'text-bold' }}">
                                     {{ $t->body }}</td>
                                 <td class="{{ $t->status !== 'Completed' ? 'text-primary text-bold' : 'text-bold' }}">
                                     {{ $t->status }}</td>
@@ -67,7 +71,7 @@
                                     @if ($t->status != 'Completed')
                                         <a href="{{ route('task.status', $t->id) }}" class="btn btn-sm btn-primary">Update
                                             Status</a>
-                                        @if ($t->status != 'Pending')
+                                        @if ($t->status != 'In Proggress')
                                             <a href="{{ route('task.edit', $t->id) }}" class="btn btn-sm btn-warning"><i
                                                     class="fas fa-edit"></i></a>
                                             <form action="{{ route('task.destroy', $t->id) }}" method="post"

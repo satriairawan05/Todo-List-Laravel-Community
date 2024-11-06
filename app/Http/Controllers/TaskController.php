@@ -60,9 +60,9 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         if ($task->status === 'Pending') {
-            return redirect()->to(route('task.index'))->with('success', 'Your Task is Pending!');
+            return redirect()->to(route('task.index'))->with('failed', 'Your Task is Pending!');
         } else if ($task->status === 'Completed') {
-            return redirect()->to(route('task.index'))->with('success', 'Your Task is Completed!');
+            return redirect()->to(route('task.index'))->with('failed', 'Your Task is Completed!');
         } else {
             return view('admin.task.edit', ['task' => $task]);
         }
@@ -88,11 +88,11 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         if ($task->status === 'Pending') {
-            return redirect()->to(route('task.index'))->with('success', 'Your Task is Pending!');
+            return redirect()->to(route('task.index'))->with('failed', 'Your Task is Pending!');
         } else if ($task->status === 'Completed') {
-            return redirect()->to(route('task.index'))->with('success', 'Your Task is Completed!');
+            return redirect()->to(route('task.index'))->with('failed', 'Your Task is Completed!');
         } else if($task->status === 'In Proggrss') {
-            return redirect()->to(route('task.index'))->with('success', 'Your Task is In Proggress!');
+            return redirect()->to(route('task.index'))->with('failed', 'Your Task is In Proggress!');
         } else {
             Task::destroy($task->id);
 
@@ -117,7 +117,7 @@ class TaskController extends Controller
                     'status' => TaskStatus::Completed
                 ]);
             }
-            return redirect()->to(route('task.index'))->with('success', 'Data' . $task->body . ' Completed!');
+            return redirect()->to(route('task.index'))->with('success', 'Data ' . $task->body . ' Completed!');
         } else {
             return redirect()->to(route('task.index'))->with('success', 'Your Task is Completed!');
         }
