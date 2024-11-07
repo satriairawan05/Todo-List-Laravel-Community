@@ -13,7 +13,7 @@
             </div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register') }}" onsubmit="btnSubmit.disabled=true; return true;">
                     @csrf
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <button type="submit" id="btnSubmit" class="btn btn-primary btn-lg btn-block">
                             Register
                         </button>
                     </div>

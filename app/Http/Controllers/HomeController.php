@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\TaskStatus;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        return view('admin.home',[
+            'taskCreated' => Task::where('user_id', auth()->user()->id)->where('status', '=', TaskStatus::Created)->count(),
+            'taskCompleted' => Task::where('user_id', auth()->user()->id)->where('status', '=', TaskStatus::Completed)->count(),
+            'taskPending' => Task::where('user_id', auth()->user()->id)->where('status', '=', TaskStatus::Pending)->count(),
+            'taskProggress' => Task::where('user_id', auth()->user()->id)->where('status', '=', TaskStatus::InProggress)->count(),
+            'taskTotal' => Task::where('user_id', auth()->user()->id)->count()
+        ]);
     }
 }

@@ -13,7 +13,7 @@
             </div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
+                <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="" onsubmit="btnSubmit.disabled=true; return true;">
                     @csrf
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -51,7 +51,7 @@
 
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                        <button type="submit" id="btnSubmit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                             Login
                         </button>
                     </div>

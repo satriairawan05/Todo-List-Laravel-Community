@@ -9,7 +9,7 @@
         <div class="section-body">
             <div class="card card-body text-dark">
                 <div class="row">
-                    <form action="{{ route('task.updateStatus', $task->id) }}" method="post">
+                    <form action="{{ route('task.updateStatus', $task->id) }}" method="post" onsubmit="btnSubmit.disabled=true; return true;">
                         @method('put')
                         @csrf
                         <textarea name="body" id="body" cols="100" rows="50" disabled
@@ -24,7 +24,7 @@
                             </select>
                         </div>
                         <a href="{{ route('task.index') }}" class="btn btn-sm btn-warning"> <i class="fas fa-reply"></i></a>
-                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                        <button id="btnSubmit" type="submit" class="btn btn-sm btn-primary">Submit</button>
                     </form>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <form action="{{ $action }}" method="post">
+        <form action="{{ $action }}" method="post" onsubmit="btnSubmit.disabled=true; return true;">
             @if ($method == 'put')
                 @method('put')
             @endif
@@ -34,7 +34,7 @@
             @endif
             <div class="mt-3">
                 <a href="{{ route('task.index') }}" class="btn btn-sm btn-warning"> <i class="fas fa-reply"></i></a>
-                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                <button id="btnSubmit" type="submit" class="btn btn-sm btn-primary">Submit</button>
             </div>
         </form>
     </div>
