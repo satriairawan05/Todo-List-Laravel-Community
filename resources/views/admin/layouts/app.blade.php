@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
 
     <!-- CSS Libraries -->
+    @stack('js')
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -45,7 +46,7 @@
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
+                            <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name ?? 'Admin' }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             {{-- <div class="dropdown-title">Logged in 5 min ago</div> --}}
